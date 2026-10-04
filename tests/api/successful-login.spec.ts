@@ -5,7 +5,7 @@ import { Routes } from '../../api/endpoints/routes';
 dotenv.config();
 
 test.describe('Authentication API Tests', () => {
-  test('POST - Successful Login @master @sanity @api', async ({ request }) => {
+  test.skip('POST - Successful Login @master @sanity @api', async ({ request }) => {
     test.fixme(true, 'FakeStore currently returns HTTP 522 instead of the documented login response');
 
     const username = process.env.FAKESTORE_USERNAME;
