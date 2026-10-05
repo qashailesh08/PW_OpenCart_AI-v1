@@ -20,7 +20,7 @@ on:
           - test:api
           - test:web
           - test:datadriven
-        default: "test:web"   # we can change the test for run
+        default: "test:e2e"
       browser:
         description: "Select browser"
         type: choice
@@ -52,25 +52,25 @@ jobs:
           node-version: lts/*
 
       - name: 📦 Install Dependencies
-        run: npm ci   # Install depe
+        run: npm ci
 
       - name: 🎭 Install Playwright Browsers
         run: npx playwright install --with-deps
 
       - name: ⚙️ Create .env File
-        run: Copy-Item .env.example .env  # copy data from .env.example file to .env
+        run: Copy-Item .env.example .env
 
       - name: 🧪 Run Playwright Tests
         run: |
-          $suite = "${{ github.event.inputs.test_suite || 'test:web' }}"
+          $suite = "${{ github.event.inputs.test_suite || 'test:e2e' }}"
           $browser = "${{ github.event.inputs.browser || 'chromium' }}"
           $mode = "${{ github.event.inputs.mode || 'headless' }}"
           $tag = $suite -replace 'test:', ''
           $browserFlag = "--project=$browser"
           $modeFlag = if ($mode -eq 'headed') { '--headed' } else { '' }
-          npx playwright test --grep "@$tag" $browserFlag $modeFlag --reporter=dot --output=test-results
+          npx playwright test --grep "@$tag" $browserFlag $modeFlag --output=test-results
         env:
-          CI: "1"   # 1 Worker 
+          CI: "1"
 
       - name: 📊 Upload Playwright HTML Report
         if: always()
@@ -78,7 +78,7 @@ jobs:
         with:
           name: playwright-report
           path: reports/
-          retention-days: 30   # keep report file for 30 days
+          retention-days: 30
 
       - name: 📋 Upload Custom Report
         if: always()
@@ -86,7 +86,7 @@ jobs:
         with:
           name: custom-report
           path: custom-report/
-          retention-days: 30   # keep report file for 30 days
+          retention-days: 30
 
       - name: 📈 Upload Allure Results
         if: always()
@@ -94,5 +94,4 @@ jobs:
         with:
           name: allure-results
           path: allure-results/
-          retention-days: 30   # keep report file for 30 days
-
+          retention-days: 30

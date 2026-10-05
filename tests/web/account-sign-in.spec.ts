@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { expect, test } from '@playwright/test';
 
 test.describe('Sign in to the customer account and handle invalid credentials ', () => {
-  test('Sign in to the customer account and handle invalid credentials @web', async ({ page }) => {
+  test('Sign in to the customer account and handle invalid credentials @e2e @web', async ({ page }) => {
     const email = process.env.OPENCART_EMAIL ?? process.env.APP_EMAIL;
     const password = process.env.OPENCART_PASSWORD ?? process.env.APP_PASSWORD;
 
