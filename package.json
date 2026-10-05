@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
-    "test:web": "playwright test tests/web",
-    "test:api": "playwright test tests/api",
-    "test:db": "playwright test tests/db",
+    "test:api": "playwright test --grep @api",
+    "test:web": "playwright test --grep @web",
     "test:master": "playwright test --grep @master",
-    "report": "playwright show-report",
-    "typecheck": "tsc --noEmit"
+    "test:sanity": "playwright test --grep @sanity",
+    "test:regression": "playwright test --grep @regression",
+    "test:e2e": "playwright test --grep @e2e",
+    "test:datadriven": "playwright test --grep @datadriven",
+    "test:master:headed": "playwright test --grep @sanity --headed",
+    "test:sanity:debug": "playwright test --grep @sanity --debug"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,7 @@
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/luxon": "^3.7.5",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.4",
     "typescript": "^7.0.2"
   },
   "dependencies": {
@@ -32,16 +34,5 @@
     "luxon": "^3.7.2",
     "mysql2": "^3.24.4",
     "xlsx": "^0.18.5"
-  },
-  "scripts": {
-    "test:api": "playwright test --grep @api",
-    "test:web": "playwright test --grep @web",
-    "test:master": "playwright test --grep @master",
-    "test:sanity": "playwright test --grep @sanity",
-    "test:regression": "playwright test --grep @regression",
-    "test:e2e": "playwright test --grep @e2e",
-    "test:datadriven": "playwright test --grep @datadriven",
-    "test:master:headed": "playwright test --grep @sanity --headed",
-    "test:sanity:debug": "playwright test --grep @sanity --debug"
   }
 }
